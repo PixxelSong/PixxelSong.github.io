@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>信鸽push 集成踩坑 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="hello world,hello">
+    <meta name="description" content="信鸽push 集成踩坑信鸽Push也是腾讯爸爸的产品，想着MTA都加进来了，半年前就想做的push要不也顺便加进来得了， 这一加可就一堆坑啊。。。 总所周知，安卓端一直没有一个稳定靠谱好用的推送通道，小米的MiPush算超级好用的了，但是受众又太小，只能覆盖到一半左右的用户。 很多APP的开发逻辑都是分别适配MiPush，华为的HWPush，魅族的MeiZuPush，Google的GMS。在此上还">
+<meta name="keywords" content="hello world,hello">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信鸽push 集成踩坑">
+<meta property="og:url" content="http://yoursite.com/2018/12/13/信鸽push 集成踩坑/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="信鸽push 集成踩坑信鸽Push也是腾讯爸爸的产品，想着MTA都加进来了，半年前就想做的push要不也顺便加进来得了， 这一加可就一堆坑啊。。。 总所周知，安卓端一直没有一个稳定靠谱好用的推送通道，小米的MiPush算超级好用的了，但是受众又太小，只能覆盖到一半左右的用户。 很多APP的开发逻辑都是分别适配MiPush，华为的HWPush，魅族的MeiZuPush，Google的GMS。在此上还">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-04T15:35:08.700Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="信鸽push 集成踩坑">
+<meta name="twitter:description" content="信鸽push 集成踩坑信鸽Push也是腾讯爸爸的产品，想着MTA都加进来了，半年前就想做的push要不也顺便加进来得了， 这一加可就一堆坑啊。。。 总所周知，安卓端一直没有一个稳定靠谱好用的推送通道，小米的MiPush算超级好用的了，但是受众又太小，只能覆盖到一半左右的用户。 很多APP的开发逻辑都是分别适配MiPush，华为的HWPush，魅族的MeiZuPush，Google的GMS。在此上还">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Xunlei</h5>
+          <a href="mailto:827817618@qq.com" title="827817618@qq.com" class="mail">827817618@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/PixxelSong" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/5393281235" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">信鸽push 集成踩坑</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">信鸽push 集成踩坑</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-13T15:39:03.000Z" itemprop="datePublished" class="page-time">
+  2018-12-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/first/">first</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#信鸽push-集成踩坑"><span class="post-toc-number">1.</span> <span class="post-toc-text">信鸽push 集成踩坑</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-信鸽push 集成踩坑" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">信鸽push 集成踩坑</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-12-13 23:39:03" datetime="2018-12-13T15:39:03.000Z" itemprop="datePublished">2018-12-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/first/">first</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="信鸽push-集成踩坑"><a href="#信鸽push-集成踩坑" class="headerlink" title="信鸽push 集成踩坑"></a>信鸽push 集成踩坑</h1><p>信鸽Push也是腾讯爸爸的产品，想着MTA都加进来了，半年前就想做的push要不也顺便加进来得了，</p>
+<p>这一加可就一堆坑啊。。。</p>
+<p>总所周知，安卓端一直没有一个稳定靠谱好用的推送通道，小米的MiPush算超级好用的了，但是受众又太小，只能覆盖到一半左右的用户。</p>
+<p>很多APP的开发逻辑都是分别适配MiPush，华为的HWPush，魅族的MeiZuPush，Google的GMS。在此上还要再写一个庞大的后台进程，保证这个进程不死，接受消息并且Push到通知栏。开发量无比的大（鸽了半年的理由）</p>
+<p>首先还是在android-config闭包里写manifestPlaceholders 和ndk信息</p>
+<p>一如既往的ndk报错。。</p>
+<p>测试集成4.x时整个应用全崩，原因不明，因为信鸽的源码是混淆过的。。</p>
+<p>转而测试3.x，发现这个版本没有集成厂商通道。。。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//鹅厂信鸽push相关</span></span><br><span class="line"><span class="comment">//信鸽jar</span></span><br><span class="line">implementation <span class="string">'com.tencent.xinge:xinge:3.2.7-Release'</span></span><br><span class="line"><span class="comment">//信鸽华为推送包</span></span><br><span class="line">implementation <span class="string">'com.tencent.xinge:xghw:3.2.8-Release'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//jg包</span></span><br><span class="line">implementation<span class="string">'com.tencent.jg:jg:1.1'</span></span><br><span class="line"><span class="comment">//wup包</span></span><br><span class="line">implementation <span class="string">'com.tencent.wup:wup:1.0.0.E-release'</span></span><br><span class="line"><span class="comment">//mid包</span></span><br><span class="line">implementation <span class="string">'com.tencent.mid:mid:4.0.6-release'</span></span><br><span class="line"><span class="comment">//mipush</span></span><br><span class="line">implementation <span class="string">'com.tencent.xinge:mipush:3.2.8-release'</span></span><br></pre></td></tr></table></figure>
+<p>按照文档，在根BaseActivity的onCreate()周期中调用</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//鹅厂信鸽push</span></span><br><span class="line">XGPushConfig.enableDebug(<span class="keyword">this</span>,<span class="literal">true</span>);</span><br><span class="line">XGPushManager.registerPush(<span class="keyword">this</span>, new XGIOperateCallback() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> void onSuccess(Object <span class="keyword">data</span>, int flag) &#123;</span><br><span class="line">        <span class="comment">//token在设备卸载重装的时候有可能会变</span></span><br><span class="line">        Log.d(<span class="string">"TPush"</span>, <span class="string">"注册成功，设备token为："</span> + <span class="keyword">data</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> void onFail(Object <span class="keyword">data</span>, int errCode, String msg) &#123;</span><br><span class="line">        Log.d(<span class="string">"TPush"</span>, <span class="string">"注册失败，错误码："</span> + errCode + <span class="string">",错误信息："</span> + msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">XGPushConfig.setMiPushAppId(<span class="keyword">this</span>, <span class="string">"2882303761517291660"</span>);</span><br><span class="line">XGPushConfig.setMiPushAppKey(<span class="keyword">this</span>, <span class="string">"5371729120660"</span>);</span><br><span class="line"><span class="comment">//打开第三方推送</span></span><br><span class="line">XGPushConfig.enableOtherPush(<span class="keyword">this</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>运行报错。。。</p>
+<p>最终在知乎里看到要把MTA的调用放在信鸽Push后面，先信鸽再MTA。</p>
+<p>一直搞不清这个逻辑，但是运行不报错了。。。</p>
+<p>测试推送，正常。先凑合用一下吧。。。。</p>
+<p>昨天的MTA数据终于也到了，但是发现我最关系最需要的用户行为，生命周期还是拿不到，，，</p>
+<p>迫不得已打开了官网那个客服窗口，，，（客服的代码都比我写的好系列。。。）</p>
+<p>好吧最终在根BaseActivity的onPause()周期和onResume()中分别添加如下代码</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> void onPause() &#123;</span><br><span class="line">    <span class="keyword">super</span>.onPause();</span><br><span class="line">    <span class="comment">//AVAnalytics.onPause(this);</span></span><br><span class="line">    StatService.onPause(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> void onResume() &#123;</span><br><span class="line">    <span class="keyword">super</span>.onResume();</span><br><span class="line">    <span class="comment">//AVAnalytics.onResume(this);</span></span><br><span class="line">    StatService.onResume(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个周期函数的调用在文档里完全没有体现，，，鹅厂的文档真是。。。</p>
+<p>。再一次的观察测试又得等明天了。。。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/touxiang.jpg" alt="Xunlei">
+            Xunlei
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello/">hello</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello-world/">hello world</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/&title=《信鸽push 集成踩坑》 — Hexo&pic=http://yoursite.com/img/touxiang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/&title=《信鸽push 集成踩坑》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《信鸽push 集成踩坑》 — Hexo&url=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/12/15/从头实现一个个人笔记的APP (1)/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">从头实现一个个人笔记的APP (1)</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/12/12/MTA 腾讯爸爸的移动分析/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MTA 腾讯爸爸的移动分析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/weixin.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/weixin.jpg" data-alipay="/img/zhifubao.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Xunlei &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/&title=《信鸽push 集成踩坑》 — Hexo&pic=http://yoursite.com/img/touxiang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/&title=《信鸽push 集成踩坑》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《信鸽push 集成踩坑》 — Hexo&url=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/12/13/信鸽push 集成踩坑/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3a0YrCMBAFUP//p7vg04KY3sm0QpPTJ6ma5ihcMpm8XvF1vK/PO//vf74ev/vtKd/eveDCwMB4LOMYXuNJzE00/8mSuWFgYOzDqA43jshqpCY/38n4GBgYGMOgzJHVKWJgYGB0Aje58jETNgYGBkZSxOaxOxfHP6rFMTAwHsioNgZ++frG/gYGBsZDGP2l3jhSO88qzAoDA2NpxvggxbUl6N1lLQYGxg6M/OBXfqdzdKPcIsXAwFiU0T/iUN1Ea22WfRsHAwNjA0Zn+/6yhV2cnCflKwYGxgaM6tQ7x8j6DU4MDIwdGMl2W7KMy+O4GqyFohcDA2NpxnibLClrO5tueTRHxTAGBsaijGohmi/d8qMbeehjYGDsyUgCd+4waz5a3oo4+RYGBsZyjGThlSz75hqQ+edPRsDAwFiaUQ3HfjRXW6GXbbRhYGA8lpFPd+44xVWTLlThGBgYizLu2PzqNAmqJAwMjLUZ/WZktYjtLxNPnouBgbEco1zvTm2NdZah5bYlBgbGoox8W63aqkzuJxM9WSxiYGAszUgONHQePBeveaxH/wkGBsbDGUfxuiNwO+GLgYGxA2OuQJ1b/CVF79yzMDAwdmBUQ3ZuEnPtgcLyEQMDYwNGp4idA3RC/5ZaHAMDYwnGeLhq8Zl/5uLGAAYGxgaMQggG8Z2Eb1QkY2BgbMCobtZ3IjUBj5Gt7TYMDIwHMuYaA51WQed+3njAwMBYgvEHeDIPLIbkH68AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

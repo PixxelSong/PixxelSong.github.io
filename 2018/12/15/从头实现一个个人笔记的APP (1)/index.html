@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>从头实现一个个人笔记的APP (1) | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="hello world,hello">
+    <meta name="description" content="从头实现一个个人笔记的APP (1)最近遇上了这么一个大作业，本着不重复造轮子（懒）的意图，Github上找了一圈，结果很难受的只找到了大佬们写的非常完整完善完美的项目，对于期末作业来说完成度太高了哇qwq                                                                                              154">
+<meta name="keywords" content="hello world,hello">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从头实现一个个人笔记的APP (1)">
+<meta property="og:url" content="http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="从头实现一个个人笔记的APP (1)最近遇上了这么一个大作业，本着不重复造轮子（懒）的意图，Github上找了一圈，结果很难受的只找到了大佬们写的非常完整完善完美的项目，对于期末作业来说完成度太高了哇qwq                                                                                              154">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="c:/Users/sxl20/AppData/Roaming/Typora/typora-user-images/1545928199709.png">
+<meta property="og:image" content="c:/Users/sxl20/AppData/Roaming/Typora/typora-user-images/1545926261285.png">
+<meta property="og:updated_time" content="2019-01-04T12:30:23.780Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从头实现一个个人笔记的APP (1)">
+<meta name="twitter:description" content="从头实现一个个人笔记的APP (1)最近遇上了这么一个大作业，本着不重复造轮子（懒）的意图，Github上找了一圈，结果很难受的只找到了大佬们写的非常完整完善完美的项目，对于期末作业来说完成度太高了哇qwq                                                                                              154">
+<meta name="twitter:image" content="c:/Users/sxl20/AppData/Roaming/Typora/typora-user-images/1545928199709.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="Hexo" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/touxiang.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Xunlei</h5>
+          <a href="mailto:827817618@qq.com" title="827817618@qq.com" class="mail">827817618@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/PixxelSong" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/5393281235" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">从头实现一个个人笔记的APP (1)</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">从头实现一个个人笔记的APP (1)</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-15T12:37:15.000Z" itemprop="datePublished" class="page-time">
+  2018-12-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/first/">first</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#从头实现一个个人笔记的APP-1"><span class="post-toc-number">1.</span> <span class="post-toc-text">从头实现一个个人笔记的APP (1)</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-从头实现一个个人笔记的APP (1)" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">从头实现一个个人笔记的APP (1)</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-12-15 20:37:15" datetime="2018-12-15T12:37:15.000Z" itemprop="datePublished">2018-12-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/first/">first</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="从头实现一个个人笔记的APP-1"><a href="#从头实现一个个人笔记的APP-1" class="headerlink" title="从头实现一个个人笔记的APP (1)"></a>从头实现一个个人笔记的APP (1)</h1><p>最近遇上了这么一个大作业，本着<del>不重复造轮子</del>（懒）的意图，Github上找了一圈，结果很难受的只找到了大佬们写的非常完整完善完美的项目，对于期末作业来说完成度太高了哇qwq</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="C:\Users\sxl20\AppData\Roaming\Typora\typora-user-images\1545928199709.png" alt="1545928199709" title="">
+                </div>
+                <div class="image-caption">1545928199709</div>
+            </figure>
+<p>还是决定花半个晚上自己写一个哇</p>
+<ul>
+<li><p>首先是最最基础的类设计，涉及到了Note和Group两个实体，由于采用LitePal作为数据库引擎，所以这两个类要继承<em>LitePalSupport</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.sxl20.sakura.Model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.litepal.crud.LitePalSupport;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Grouping</span> <span class="keyword">extends</span> <span class="title">LitePalSupport</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.sxl20.sakura.Model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.litepal.crud.LitePalSupport;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Note</span> <span class="keyword">extends</span> <span class="title">LitePalSupport</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line">    <span class="keyword">private</span> String cont;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> groupID = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTitle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.title = title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCont</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> cont;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCont</span><span class="params">(String cont)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cont = cont;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getGroupID</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> groupID;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setGroupID</span><span class="params">(<span class="keyword">int</span> groupID)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.groupID = groupID;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要涉及到数据库，为了自己心平气和的心态，<em>SQliteOpenHelper</em> 肯定是不能用的，</p>
+<p>经过慎重的决定，选用 <em>LitePal</em> 作为数据库框架</p>
+<p>再加上关于操作和UI的考虑，导入一个<em>floatingactionbutton</em></p>
+<p>最终引用库：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">'org.litepal.android:kotlin:3.0.0'</span></span><br><span class="line">androidTestImplementation <span class="string">'com.android.support.test.espresso:espresso-core:3.0.2'</span></span><br><span class="line">implementation <span class="string">'com.android.support:design:28.0.0'</span></span><br><span class="line">implementation <span class="string">'com.android.support:recyclerview-v7:28.0.0'</span></span><br><span class="line">implementation <span class="string">'com.android.support:cardview-v7:28.0.0'</span></span><br><span class="line">implementation <span class="string">"org.jetbrains.anko:anko:0.10.8"</span></span><br><span class="line">implementation <span class="string">'com.getbase:floatingactionbutton:1.10.1'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><em>MainActivity</em>的布局如图，是一个简单到有些简陋的 <em>RecyclerView + floatingactionbutton</em> 的布局</p>
+<p><img src="C:\Users\sxl20\AppData\Roaming\Typora\typora-user-images\1545926261285.png" alt="1545926261285"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">android.support.design.widget.CoordinatorLayout</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:fab</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/drawer_layout"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.design.widget.AppBarLayout</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">android.support.v7.widget.Toolbar</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:id</span>=<span class="string">"@+id/Toolbar"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"?attr/actionBarSize"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:background</span>=<span class="string">"?attr/colorPrimary"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:theme</span>=<span class="string">"@style/ThemeOverlay.AppCompat.Dark.ActionBar"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">app:popupTheme</span> = <span class="string">"@style/ThemeOverlay.AppCompat.Light"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">app:layout_scrollFlags</span>=<span class="string">"scroll|enterAlways|snap"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">android.support.design.widget.AppBarLayout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.v7.widget.RecyclerView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/recycler_view"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">app:layout_behavior</span>=<span class="string">"@string/appbar_scrolling_view_behavior"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">com.getbase.floatingactionbutton.FloatingActionsMenu</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/fab"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_gravity</span>=<span class="string">"bottom|end"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_margin</span>=<span class="string">"15dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">fab:fab_addButtonColorNormal</span>=<span class="string">"@color/white"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">fab:fab_addButtonColorPressed</span>=<span class="string">"@color/white_pressed"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">fab:fab_addButtonPlusIconColor</span>=<span class="string">"#000000"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">com.getbase.floatingactionbutton.FloatingActionButton</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:id</span>=<span class="string">"@+id/action_new_note"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_colorNormal</span>=<span class="string">"@color/white"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:src</span>=<span class="string">"@drawable/ic_add"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_title</span>=<span class="string">"Action A"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_colorPressed</span>=<span class="string">"@color/white_pressed"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">com.getbase.floatingactionbutton.FloatingActionButton</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:id</span>=<span class="string">"@+id/action_search"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:src</span>=<span class="string">"@drawable/ic_select"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_colorNormal</span>=<span class="string">"@color/white"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_title</span>=<span class="string">"Action with a very long name that won\'t fit on the screen"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_colorPressed</span>=<span class="string">"@color/white_pressed"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">com.getbase.floatingactionbutton.FloatingActionButton</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:id</span>=<span class="string">"@+id/action_group"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_colorNormal</span>=<span class="string">"@color/white"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:src</span>=<span class="string">"@drawable/ic_group"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_title</span>=<span class="string">"Action C"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">fab:fab_colorPressed</span>=<span class="string">"@color/white_pressed"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">com.getbase.floatingactionbutton.FloatingActionsMenu</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.design.widget.CoordinatorLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>考虑到要对初次用户友好，所以再<em>MainActivity</em>的<em>onCreate</em>方法中添加对初次启动的判断，<em>SharedPreferences</em>是一个很好的东西</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> isFirst = getSharedPreferences(<span class="string">"notepad"</span>, MODE_PRIVATE).getBoolean(<span class="string">"isFirst"</span>, <span class="literal">true</span>)</span><br><span class="line"><span class="keyword">if</span> (isFirst) &#123;</span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    getSharedPreferences(<span class="string">"notepad"</span>, MODE_PRIVATE)</span><br><span class="line">        .edit()</span><br><span class="line">        .putBoolean(<span class="string">"isFirst"</span>, <span class="literal">false</span>)</span><br><span class="line">        .apply()</span><br><span class="line">    <span class="keyword">init</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初次启动时建立默认数据库</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> note = Note()</span><br><span class="line">    note.title = <span class="string">"这是标题"</span></span><br><span class="line">    note.cont = <span class="string">"长按可以删除item鸭w"</span></span><br><span class="line">    note.groupID = <span class="number">1</span></span><br><span class="line">    note.save()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> grouping = Grouping();</span><br><span class="line">    grouping.name = <span class="string">"默认文件夹"</span></span><br><span class="line">    grouping.save()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首页由于采用<em>RecyclerView</em>作为Note的载体，所以一个NoteAdapter适配器是必不可少的了  首先定义一个内部ViewHolder，说起来好像曾经的ListView最大的性能瓶颈就在于ViewHolder呢。</p>
+<p>声明NoteAdapter，继承于以刚刚定义的ViewHolder为泛型的RecyclerAdapter，重写RecyclerAdapter的三个虚方法。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NoteAdapter</span></span>(<span class="keyword">private</span> <span class="keyword">val</span> list: List&lt;Note&gt;) : RecyclerView.Adapter&lt;NoteAdapter.ViewHolder&gt;()&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreateViewHolder</span><span class="params">(p0: <span class="type">ViewGroup</span>, p1: <span class="type">Int</span>)</span></span>: ViewHolder &#123;</span><br><span class="line">        <span class="keyword">val</span> view = LayoutInflater</span><br><span class="line">            .from(p0.context)</span><br><span class="line">            .inflate(R.layout.note_layout,p0,<span class="literal">false</span>)</span><br><span class="line">        <span class="keyword">return</span> ViewHolder(view)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">getItemCount</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> list.size</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBindViewHolder</span><span class="params">(p0: <span class="type">ViewHolder</span>, p1: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> note = list[p1]</span><br><span class="line">        p0.itemView.title.text = note.title</span><br><span class="line">        p0.itemView.content.text = note.cont</span><br><span class="line"></span><br><span class="line">        p0.itemView.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(p0.itemView.context, NoteActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            intent.putExtra(<span class="string">"note"</span>,p0.adapterPosition)</span><br><span class="line">            p0.itemView.context.startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">        p0.itemView.setOnLongClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> builder = AlertDialog.Builder(MainActivity.instance!!)</span><br><span class="line">            builder.setMessage(<span class="string">"删除之后无法恢复\n真的要删除我\uD83D\uDC34？w(ﾟДﾟ)w"</span>)</span><br><span class="line">            builder.setPositiveButton(<span class="string">"删"</span>) &#123; _, _ -&gt;</span><br><span class="line">                <span class="keyword">val</span> position = p0.adapterPosition</span><br><span class="line">                <span class="keyword">val</span> note = list[position]</span><br><span class="line">                note.delete()</span><br><span class="line">                MainActivity.instance!!.delete(position)</span><br><span class="line">            &#125;</span><br><span class="line">            builder.setNegativeButton(<span class="string">"不删"</span>, <span class="literal">null</span>)</span><br><span class="line">            builder.show()</span><br><span class="line">            <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">ViewHolder</span></span>(view: View) : RecyclerView.ViewHolder(view)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（不得不说为了Kotlin而生的Anko库是真的舒服啊，代码可以变得很清爽干净，现在基本每个采用了Kotlin的项目都会第一时间的 <em>implementation “org.jetbrains.anko:anko:$anko_vision”</em> 的吧）</p>
+<p>（顺便不得不继续吐槽下onLongClickListener这个东西，好好的一个监听器不知道为什么最后非得返回一个<em>Boolean</em>值，导致最后一行多了一个true显得代码很乱，尤其是再androidstuduio中默认进行展开的情况下）</p>
+<p>采用实例活动，所以要对Activity实现一个暴露的instance</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> instance: MainActivity? = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        instance = <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要对以后的接口进行暴露，所以最终<em>MainActivity</em>设计如下</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> noteList: MutableList&lt;Note&gt; = ArrayList()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> instance: MainActivity? = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> adapter: NoteAdapter? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        LitePal.initialize(<span class="keyword">this</span>)</span><br><span class="line">        LitePal.getDatabase()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> isFirst = getSharedPreferences(<span class="string">"notepad"</span>, MODE_PRIVATE).getBoolean(<span class="string">"isFirst"</span>, <span class="literal">true</span>)</span><br><span class="line">        <span class="keyword">if</span> (isFirst) &#123;</span><br><span class="line">            <span class="comment">//初始化</span></span><br><span class="line">            getSharedPreferences(<span class="string">"notepad"</span>, MODE_PRIVATE)</span><br><span class="line">                .edit()</span><br><span class="line">                .putBoolean(<span class="string">"isFirst"</span>, <span class="literal">false</span>)</span><br><span class="line">                .apply()</span><br><span class="line">            <span class="keyword">init</span>()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        instance = <span class="keyword">this</span></span><br><span class="line">        initNotes()</span><br><span class="line">        initView()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initNotes</span><span class="params">()</span></span> &#123;</span><br><span class="line">        noteList.clear()</span><br><span class="line">        LitePal.findAll(Note::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>).<span class="title">forEach</span></span>&#123;</span><br><span class="line">            noteList.add(it)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        adapter = NoteAdapter(noteList)</span><br><span class="line">        recycler_view.layoutManager = LinearLayoutManager(applicationContext)</span><br><span class="line">        recycler_view.adapter = adapter</span><br><span class="line">        initFAB()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initFAB</span><span class="params">()</span></span>&#123;</span><br><span class="line">        action_new_note.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(applicationContext, NoteActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">        action_search.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> view = EditText(<span class="keyword">this</span>)</span><br><span class="line">            AlertDialog.Builder(<span class="keyword">this</span>)</span><br><span class="line">                .setTitle(<span class="string">"搜索"</span>)</span><br><span class="line">                .setCancelable(<span class="literal">false</span>)</span><br><span class="line">                .setPositiveButton(<span class="string">"搜索🔍"</span>) &#123; _, _ -&gt;</span><br><span class="line">                    <span class="keyword">val</span> list = LitePal.<span class="keyword">where</span>(<span class="string">"cont like \'%?%\'"</span>,view.text.toString()).find(Note::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">                    noteList.clear()</span><br><span class="line">                    noteList.addAll(list)</span><br><span class="line">                    reflush()</span><br><span class="line">                &#125;.setNegativeButton(<span class="string">"不搜索惹"</span>) &#123; _, _ -&gt; &#125;</span><br><span class="line">                .setView(view)</span><br><span class="line">                .show()</span><br><span class="line">            Log.d(<span class="string">"dasdas"</span>,view.text.toString())</span><br><span class="line">        &#125;</span><br><span class="line">        action_group.setOnClickListener &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, GroupActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//初次启动时建立默认数据库</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">val</span> note = Note()</span><br><span class="line">        note.title = <span class="string">"这是标题"</span></span><br><span class="line">        note.cont = <span class="string">"长按可以删除item鸭w"</span></span><br><span class="line">        note.groupID = <span class="number">1</span></span><br><span class="line">        note.save()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> grouping = Grouping();</span><br><span class="line">        grouping.name = <span class="string">"默认文件夹"</span></span><br><span class="line">        grouping.save()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">add</span><span class="params">(note: <span class="type">Note</span>)</span></span>&#123;</span><br><span class="line">        noteList.add(note)</span><br><span class="line">        adapter!!.notifyDataSetChanged()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">delete</span><span class="params">(position: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        noteList.removeAt(position)</span><br><span class="line">        adapter!!.notifyDataSetChanged()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getNote</span><span class="params">(position: <span class="type">Int</span>)</span></span> : Note &#123;</span><br><span class="line">        <span class="keyword">return</span> noteList[position]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">reflush</span><span class="params">()</span></span> = adapter!!.notifyDataSetChanged()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="http://yoursite.com">
+            <img src="/img/touxiang.jpg" alt="Xunlei">
+            Xunlei
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello/">hello</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello-world/">hello world</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/&title=《从头实现一个个人笔记的APP (1)》 — Hexo&pic=http://yoursite.com/img/touxiang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/&title=《从头实现一个个人笔记的APP (1)》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《从头实现一个个人笔记的APP (1)》 — Hexo&url=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/12/13/信鸽push 集成踩坑/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">信鸽push 集成踩坑</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/weixin.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/weixin.jpg" data-alipay="/img/zhifubao.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Xunlei &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/&title=《从头实现一个个人笔记的APP (1)》 — Hexo&pic=http://yoursite.com/img/touxiang.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/&title=《从头实现一个个人笔记的APP (1)》 — Hexo&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《从头实现一个个人笔记的APP (1)》 — Hexo&url=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/&via=http://yoursite.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://yoursite.com/2018/12/15/从头实现一个个人笔记的APP (1)/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACuUlEQVR42u3bUY7iQAwFQO5/6dkD7ELes7s1rFT5QkMSXEFyG7vn9YqPn7+O9szk2uSerxsHHh4e3jr0d8G9e/3ug5N3P5+fPKyHR4+Hh4d3jff5499d/DnEz+fnj/LzOQ8WPDw8vK/htUX2puzGw8PD+395yVX5QtK2GPDw8PC+jZc0I5LEnTcykjZHXo4f6LXg4eHhxbxNUv6t11fme3h4eHjrqXqefJOEvmnazqLFw8PDu8Frk/Ks+M6L3ZYUNXnx8PDwrvFOJeK2IJ41kfMHhIeHh3ePd3brwL4Qz0drD9fi4eHhXeDlsHY81oayebc4Ew8PD2/Naz8+XwxmTYd9JMPaHA8PD2+xE+lzcm/L7nwMthmVFVQ8PDy8y7zkL3lJPWt2JO3m5BPx8PDwzvLaZL0pqdvHdKCxi4eHh3eIlywA7ags2UCQNCNmd67XNzw8PLwRrx385xsC9oOufJH4x5l4eHh4F3ibZm6byvNyPEn6q01XeHh4eAte3oBoy992MDZrFj9EgoeHh/dLvH2Rnbcz2ns+gPHw8PCu8TbjqDbd52OzfNPVsEuNh4eHd5TXbiPYN2fbgVlU3OPh4eFd4M22CySkTcHdLgkPUeHh4eFd4+VB78NtH2LbEIn6HHh4eHgjXp6CNxsCknBny8Pqe8PDw8Ob/6If/hN+G+Js9LUv0/Hw8PDO8g5vcorv8IqPzVV4eHh4N3j7tuzZ8VjLiBofeHh4eEd5P+WRYGaLRPI42k1geHh4eDd4m7R7tomQD8BuFO54eHh4LW+2GOQl+KbebwdyB74ZPDw8vJiXNCDy8dXsPvn5RQx4eHh4v8qrk3K8WSEJNP81gIeHh/c9vHpsX25BSEZi7WgNDw8P7x5vP/RKyuK8NN80Ow60cfHw8PDWE/YDCXoU9Ky5PNw6gIeHh/fM+wPBe1S5d4TUjgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
